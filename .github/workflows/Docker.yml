@@ -17,4 +17,18 @@ jobs:
       with:
         Username: guimotajr
         Password: ${{ secrets.PASSWORD_DOCKER_HUB }}
-      
+
+    - name: Build and push Docker images
+  # You may pin to the exact commit or the version.
+  # uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9
+      uses: docker/build-push-action@v4.2.1
+      with:
+        # Build's context is the set of files located in the specified PATH or URL
+        context: .
+        # Path to the Dockerfile
+        file: ./Dockerfile
+        # Push is a shorthand for --output=type=registry
+        push: true # optional, default is false
+        # List of tags
+        tags: guimotajr/alura_ci:${{git.hub.ref_name}} # optional versão pegando brach do git
+          
